@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}User: {{ object.username }}{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm-12">
+      {# Request the login username and email address#}
+      <h3>Welcome, {{ object.username }} ({{object.email}}) </h3>
+
+      {# Check the login user type i.e if it is a troupe leader, clown or client and displays the text accordingly#}
+      {% if request.user.is_troupe_leader %}
+          <p>{{object.name }} - (Troupe Leader)</p>
+      {% elif request.user.is_troupe_leader %}
+          <p>{{object.name }} - (Clown)</p>>
+      {% elif request.user.is_troupe_leader %}
+          <p>{{object.name }}- (Client)</p>
+      {% endif  %}
+
+    </div>
+  </div>
+
+{% if object == request.user %}
+<!-- Action buttons -->
+<div class="row">
+
+  <div class="col-sm-12">
+    <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
+    <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
+    <!-- Your Stuff: Custom user template urls -->
+  </div>
+
+</div>
+<!-- End Action buttons -->
+{% endif %}
+
+
+</div>
+{% endblock content %}
+
